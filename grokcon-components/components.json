@@ -1,0 +1,39 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": false,
+  "tailwind": {
+    "config": "",
+    "css": "src/App.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "iconLibrary": "lucide",
+  "registries": {
+    "@grokcon": "http://localhost:5000/api/registry/components/{name}",
+    "@v0": "https://v0.dev/chat/b/{name}",
+    "@shadcn": "https://ui.shadcn.com/registry/{name}.json",
+    "@grokcon-local": {
+      "url": "http://localhost:5000/api/registry/components/{name}",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    "@grokcon-prod": {
+      "url": "https://registry.grokcon.com/api/registry/components/{name}",
+      "headers": {
+        "Authorization": "Bearer ${GROKCON_API_TOKEN}",
+        "X-API-Version": "1.0"
+      }
+    }
+  }
+}
