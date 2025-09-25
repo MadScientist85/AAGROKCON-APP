@@ -2,13 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Add any simple CSS rules here */
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
+  --background: 0 0% 6%;
+  --foreground: 0 0% 88%;
+  --card: 0 0% 10%;
+  --card-foreground: 0 0% 88%;
+  --popover: 0 0% 10%;
+  --popover-foreground: 0 0% 88%;
+  --primary: 38 92% 50%;
+  --primary-foreground: 0 0% 0%;
+  --secondary: 187 83% 53%;
+  --secondary-foreground: 0 0% 0%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 64%;
+  --accent: 38 92% 50%;
+  --accent-foreground: 0 0% 0%;
+  --destructive: 0 62% 30%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 16.5%;
+  --input: 0 0% 16.5%;
+  --ring: 38 92% 50%;
+}
+
+/* Force dark mode */
+html {
+  color-scheme: dark;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  @apply bg-background text-foreground;
+  font-feature-settings: "rlig" 1, "calt" 1;
+  background-image: url("/circuit-background.png");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
 }
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+

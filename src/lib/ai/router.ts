@@ -1,36 +1,39 @@
 import { NextResponse } from 'next/server';
+import { OpenAI } from 'openai';
 
-// Simplified AI router that doesn't depend on external packages
-export const aiRouter = async (req: Request) => {
-  try {
-    // Extract the query parameter from the URL
-    const url = new URL(req.url);
-    const text = url.searchParams.get('text') || '';
-    
-    // For now, just return a simple response
-    return new NextResponse(JSON.stringify({
-      text: `AI processed: ${text}`,
-      // This is a placeholder for actual AI processing
-      summary: "This is a placeholder summary. Actual AI processing will be implemented later."
-    }), {
-      status: 200,
-      headers: { 'content-type': 'application/json' },
-    });
-  } catch (error) {
-    console.error('AI processing error:', error);
-    return new NextResponse(JSON.stringify({ error: 'An error occurred during your request.' }), {
-      status: 500,
-      headers: { 'content-type': 'application/json' },
-    });
-  }
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+export interface AIRequestParams {
+  prompt: string;
+  model?: string;
+  opportunityId?: string;
+  naicsCode?: string;
+  opportunityTitle?: string;
+  bidType?: 'full' | 'technical' | 'price' | 'draft';
+  includeResumes?: boolean;
+  includePastPerformance?: boolean;
 }
 
-// Export the function that the route is trying to use
-export const routeAIRequest = async (req: Request) => {
-  return aiRouter(req);
+// This is the ONLY declaration of routeAIRequest that should exist
+export async function routeAIRequest({
+  prompt,
+  model = 'grok-4-fast',
+  opportunityId,
+  naicsCode,
+  opportunityTitle,
+  bidType = 'full',
+  includeResumes = true,
+  includePastPerformance = true
+}: AIRequestParams) {
+  // Placeholder for actual AI routing logic
+  // For now, it will just return a dummy response
+  return { message: `AI request for '${prompt}' with model '${model}' processed.` };
 }
 
-// Add the missing routeAIRequest function that's being imported in route.ts
-export const routeAIRequest = async ({ prompt, model = 'grok-4-fast' }) => {
-  return aiRouter({ prompt, model });
+export const aiRouter = async ({ prompt, model }: { prompt: string, model: string }) => {
+  // This aiRouter is a placeholder and will be used by routeAIRequest
+  // Actual implementation would involve calling OpenAI or other AI services
+  return { message: `AI router processed: ${prompt} with model ${model}` };
 };

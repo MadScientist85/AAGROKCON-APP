@@ -1,11 +1,25 @@
-import './globals.css';
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "GrokCon Empire",
+  description: "AI-powered GovCon Bid Generation and Opportunity Tracking",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{ 
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en">
-      <body className="font-sans">
+    <html lang="en" className="dark">
+      <body className={inter.className}>
         {children}
       </body>
     </html>
   );
 }
+

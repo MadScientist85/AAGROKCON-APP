@@ -1,39 +1,23 @@
-import { NextResponse } from 'next/server';
-import { routeAIRequest } from '@/lib/ai/router';
+import { searchOpportunities } from "@/lib/sam-api";
 
 export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  
+  const params = {
+    naicsCode: searchParams.get("naicsCode") || undefined,
+    keyword: searchParams.get("keyword") || undefined,
+    postedFrom: searchParams.get("postedFrom") || undefined,
+    postedTo: searchParams.get("postedTo") || undefined,
+    limit: searchParams.get("limit") || undefined,
+    offset: searchParams.get("offset") || undefined,
+  };
+  
   try {
-    const { searchParams } = new URL(request.url);
-    const naics = searchParams.get('naics') || '';
-    const setAsides = searchParams.get('setAsides') || '';
-
-    // Fetch opportunities from SAM.gov
-    const response = await fetch(`https://api.sam.gov/opportunities/v1/search?naics=${naics}&setAsides=${setAsides}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        // Add any required API keys or auth headers
-      },
-    });
-
-    const data = await response.json();
-
-    // Create a proper Request object for the AI router
-    const aiRequest = new Request(`https://api/ai/summarize?text=Summarize SAM.gov opportunities for NAICS ${naics}, set-asides ${setAsides}`);
-    
-    // Call the AI router but don't try to parse the response yet
-    await routeAIRequest(aiRequest);
-    
-    // Return the data with a placeholder for the AI summary
-    return NextResponse.json({
-      success: true,
-      data: data.opportunitiesData,
-      aiSummary: "AI summary feature coming soon",
-    });
+    const data = await searchOpportunities(params);
+    return Response.json(data);
   } catch (error) {
-    // If any error occurs, return a failure response
-    return NextResponse.json({ 
-      success: false, 
-      error: "Failed to fetch opportunities" 
-    }, { status: 500 });
+    console.error("Error fetching opportunities:", error);
+    return Response.json({ error: "Failed to fetch opportunities" }, { status: 500 });
   }
 }
+

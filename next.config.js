@@ -1,14 +1,16 @@
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 const nextConfig = {
-  // Only include valid and necessary options
-  reactStrictMode: true,
-  swcMinify: true,
-  // Remove experimental.lightningcss if it's causing issues
   experimental: {
-    // Add any valid experimental features here
+    serverComponentsExternalPackages: ["@supabase/supabase-js"],
   },
-  // Add any other valid configuration options here
+  images: {
+    domains: ["api.sam.gov"],
+  },
+  // Remove invalid options:
+  // - swcMinify
+  // - cssLoaderOptions
+  // - transpilePackages
 };
 
-// Use export default for ES modules
-export default nextConfig;
+module.exports = nextConfig;
+
