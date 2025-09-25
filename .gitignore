@@ -4,3 +4,10 @@ grokcon-registry-api/__pycache__/
 grokcon-components/.env
 .DS_Store
 *.log
+
+
+# Dependencies
+/node_modules
+/.pnpm-store
+/.next
+
