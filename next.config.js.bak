@@ -1,0 +1,11 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    // Disable LightningCSS
+    lightningcss: false,
+    // Keep any other experimental features you need
+  },
+  // Preserve any other config options from your original file
+};
+
+export default nextConfig;

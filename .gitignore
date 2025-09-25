@@ -1,0 +1,6 @@
+grokcon-components/node_modules/
+grokcon-registry-api/venv/
+grokcon-registry-api/__pycache__/
+grokcon-components/.env
+.DS_Store
+*.log
