@@ -1,15 +1,10 @@
-/** @type {import("next").NextConfig} */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverComponentsExternalPackages: ["@supabase/supabase-js"],
-  },
+  reactStrictMode: true,
+  serverExternalPackages: ['@prisma/client', 'prisma'],
   images: {
-    domains: ["api.sam.gov"],
+    domains: ['images.unsplash.com'],
   },
-  // Remove invalid options:
-  // - swcMinify
-  // - cssLoaderOptions
-  // - transpilePackages
-};
+}
 
-export default nextConfig;
+module.exports = nextConfig
